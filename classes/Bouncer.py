@@ -7,7 +7,7 @@ from constants import BLUE
 
 class Bouncer:
 
-  def __init__(self, surface, x_max, y_max, animate=False):
+  def __init__(self, surface, x_max, y_max, x=None, y=None, x_speed=1, y_speed=1, animate=False):
 
     self.corners = [
       (0, 0),
@@ -18,16 +18,17 @@ class Bouncer:
 
     self.animate = animate
 
-    self.starting_x = random.randint(1, x_max)
-    self.starting_y = random.randint(1, y_max)
+    self.starting_x = x or random.randint(0, x_max)
+    self.starting_y = y or random.randint(0, y_max) 
 
     self.collisions = 0
+    self.remaining_collisions = 0
 
     self.x = self.starting_x
     self.y = self.starting_y
 
-    self.x_speed = 1
-    self.y_speed = 1
+    self.x_speed = x_speed
+    self.y_speed = y_speed
 
     self.x_max = x_max
     self.y_max = y_max
@@ -48,9 +49,6 @@ class Bouncer:
     self.rectangle_size = 15
     self.ball_size = 10
 
-    self.update_remaining_collisions()
-
-
   def update(self):
 
     self.next_position = self.get_next_position()
@@ -70,11 +68,13 @@ class Bouncer:
       self.x_speed = self.x_speed * -1
       self.trail.append((self.x, self.y))
       self.collisions = self.collisions + 1
+      self.remaining_collisions = self.remaining_collisions - 1
     
     if(new_y >= self.y_max or new_y <= 0):
       self.y_speed = self.y_speed * -1
       self.trail.append((self.x, self.y))
       self.collisions = self.collisions + 1
+      self.remaining_collisions = self.remaining_collisions - 1
 
   def reset(self):
 
@@ -82,10 +82,15 @@ class Bouncer:
     self.trail = [(self.x, self.y), (self.x, self.y)]
 
   def update_remaining_collisions(self):
+    new_instance = Bouncer(None, self.x_max, self.y_max, self.x, self.y, self.x_speed, self.y_speed, animate=False)
+    self.remaining_collisions = new_instance.get_remaining_collisions()
+    self.reset()
+    del(new_instance)
+
+  def get_remaining_collisions(self):
     while not self.check_corner():
       self.update()
-    self.remaining_collisions = self.collisions
-    self.reset()
+    return self.collisions - 1
 
   def draw(self):
 

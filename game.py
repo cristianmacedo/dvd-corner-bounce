@@ -19,6 +19,7 @@ clock = pygame.time.Clock()
 running = True
 
 bouncer = Bouncer(screen, WIDTH-1, HEIGHT-1, animate=True)
+bouncer.update_remaining_collisions()
 text =  Text(screen, (WIDTH-1, HEIGHT-1), bgcolor=(0, 0, 0), fontsize=20)
 ticks = [0]
 
@@ -31,9 +32,9 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    #2 Update
+    #2 Update      
     bouncer.update()
-    text.update_text(str(bouncer.remaining_collisions - bouncer.collisions))
+    text.update_text(str(bouncer.remaining_collisions))
 
     #3 Draw/render
     screen.fill(BLACK)
@@ -51,10 +52,10 @@ while running:
         'Time: ' + str(ticks_diff/1000) + ' seconds' + ' | ' +  \
         'Collisions with wall: ' + str(bouncer.collisions)
       )
-      bouncer.reset()
+      bouncer.update()
       bouncer.update_remaining_collisions()
 
-    
+    560
     #5 Display flip
     pygame.display.flip()
 
