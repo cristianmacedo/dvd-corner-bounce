@@ -1,6 +1,6 @@
 WIDTH = 180
 HEIGHT = 120
-FPS = 120
+FPS = 400
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
