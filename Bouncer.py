@@ -3,12 +3,11 @@ import pygame
 
 from constants import LIGHT_RED 
 from constants import RED
-
-BALL_SIZE = 5
+from constants import BLUE
 
 class Bouncer:
 
-  def __init__(self, surface, x_max, y_max):
+  def __init__(self, surface, x_max, y_max, animate=False):
 
     self.corners = [
       (0, 0),
@@ -16,6 +15,8 @@ class Bouncer:
       (0, y_max),
       (x_max, y_max)
     ]
+
+    self.animate = animate
 
     self.starting_x = random.randint(1, x_max)
     self.starting_y = random.randint(1, y_max)
@@ -31,22 +32,36 @@ class Bouncer:
     self.x_max = x_max
     self.y_max = y_max
 
+    self.next_position = (0, 0)
+
     self.surface = surface
 
     self.color = RED
     self.trail_color = LIGHT_RED
+    self.path_color = BLUE
 
     self.trail = [(self.starting_x, self.starting_y), (self.x, self.y)]
 
+    self.trail_size = 1
+    self.path_size = 1
+
+    self.rectangle_size = 10
+    self.ball_size = 5
+
   def update(self):
+
+    self.next_position = self.get_next_position()
 
     new_x = self.x + self.x_speed
     new_y = self.y + self.y_speed
 
-    self.x = new_x  
+    if(not self.animate):
+      new_x, new_y = self.next_position
+
+    self.x = new_x
     self.y = new_y
 
-    self.trail[-1] = (self.x, self.y)
+    self.trail[-1] = (self.x, self.y)    
 
     if(new_x >= self.x_max or new_x <= 0):
       self.x_speed = self.x_speed * -1
@@ -58,18 +73,26 @@ class Bouncer:
       self.trail.append((self.x, self.y))
       self.bounces = self.bounces + 1
 
+  def reset(self):
+
+    self.bounces = 0
+    self.trail = [(self.x, self.y), (self.x, self.y)]
+
+
   def draw(self):
 
-    pygame.draw.circle(self.surface, self.color, self.get_next_position(), BALL_SIZE)
+    next_position = self.get_next_position()
 
-    #pygame.draw.lines(self.surface, self.trail_color, False, self.trail, 10)
-    pygame.draw.rect(self.surface, self.color, (self.x, self.y, 10, 10))
+    pygame.draw.lines(self.surface, self.trail_color, False, self.trail, self.trail_size)
+    pygame.draw.line(self.surface, self.path_color, self.trail[-1], next_position, self.path_size)
+    
+    pygame.draw.rect(self.surface, self.color, (self.x, self.y, self.rectangle_size, self.rectangle_size))
+    pygame.draw.circle(self.surface, self.color, next_position, self.ball_size)
 
   def check_loop(self):
 
-    for corner in self.corners:
-      if(self.x == self.starting_x and self.y == self.starting_y):
-        return True
+    if(self.x == self.starting_x and self.y == self.starting_y):
+      return True
     
     return False
 
@@ -92,13 +115,14 @@ class Bouncer:
 
     if (self.x_speed > 0):
       comparisons.append(r_dist)
-    if (self.x_speed < 0):
+    elif (self.x_speed < 0):
       comparisons.append(l_dist)
+      
     if (self.y_speed > 0):
       comparisons.append(b_dist)
-    if (self.y_speed < 0):
+    elif (self.y_speed < 0):
       comparisons.append(t_dist)
 
     closest = min(comparisons)
 
-    return self.x + (closest * self.x_speed), self.y + (closest * self.y_speed)
+    return (self.x + (closest * self.x_speed), self.y + (closest * self.y_speed))
