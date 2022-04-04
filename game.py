@@ -21,8 +21,7 @@ running = True
 
 bouncer = Bouncer(screen, WIDTH-1, HEIGHT-1, animate=True)
 text =  Text(screen, (WIDTH-1, HEIGHT-1), bgcolor=(0, 0, 0), fontsize=10)
-
-time_intervals = [0]
+ticks = [0]
 
 while running:
 
@@ -44,12 +43,13 @@ while running:
 
     #4 Check if game has ended
     if(bouncer.check_corner()):
-      
-      time_interval = pygame.time.get_ticks() - time_intervals[-1]
-      time_intervals.append(time_interval)
+      current_ticks = pygame.time.get_ticks()
+      last_ticks = ticks[-1]
+      ticks_diff = current_ticks - last_ticks
+      ticks.append(current_ticks)
       print( \
         'Corner bounce!' + ' | ' + \
-        'Time: ' + str(time_interval/1000) + ' seconds' + ' | ' +  \
+        'Time: ' + str(ticks_diff/1000) + ' seconds' + ' | ' +  \
         'Collisions with wall: ' + str(bouncer.collisions)
       )
       bouncer.reset()
