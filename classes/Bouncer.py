@@ -45,8 +45,8 @@ class Bouncer:
     self.trail_size = 1
     self.path_size = 1
 
-    self.rectangle_size = 10
-    self.ball_size = 5
+    self.rectangle_size = 15
+    self.ball_size = 10
 
     self.update_remaining_collisions()
 

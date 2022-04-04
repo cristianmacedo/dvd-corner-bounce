@@ -19,7 +19,7 @@ clock = pygame.time.Clock()
 running = True
 
 bouncer = Bouncer(screen, WIDTH-1, HEIGHT-1, animate=True)
-text =  Text(screen, (WIDTH-1, HEIGHT-1), bgcolor=(0, 0, 0), fontsize=10)
+text =  Text(screen, (WIDTH-1, HEIGHT-1), bgcolor=(0, 0, 0), fontsize=20)
 ticks = [0]
 
 while running:
@@ -56,6 +56,6 @@ while running:
 
     
     #5 Display flip
-    pygame.display.flip()       
+    pygame.display.flip()
 
 pygame.quit()
