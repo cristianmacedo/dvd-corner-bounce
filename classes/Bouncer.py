@@ -1,13 +1,9 @@
 import random
-from tkinter import font
 import pygame
 
 from constants import LIGHT_RED 
 from constants import RED
 from constants import BLUE
-from Text import Text
-
-import sys
 
 class Bouncer:
 
@@ -52,7 +48,7 @@ class Bouncer:
     self.rectangle_size = 10
     self.ball_size = 5
 
-    self.remaining_collisions = self.get_remaining_collisions()
+    self.update_remaining_collisions()
 
 
   def update(self):
@@ -83,16 +79,13 @@ class Bouncer:
   def reset(self):
 
     self.collisions = 0
-    self.x = self.starting_x
-    self.y = self.starting_y
     self.trail = [(self.x, self.y), (self.x, self.y)]
 
-  def get_remaining_collisions(self):
+  def update_remaining_collisions(self):
     while not self.check_corner():
       self.update()
-    result = self.collisions
+    self.remaining_collisions = self.collisions
     self.reset()
-    return result
 
   def draw(self):
 

@@ -1,4 +1,4 @@
-from Bouncer import Bouncer 
+from classes.Bouncer import Bouncer 
 
 from constants import WIDTH
 from constants import HEIGHT

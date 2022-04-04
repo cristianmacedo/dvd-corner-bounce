@@ -1,6 +1,6 @@
-WIDTH = 720
-HEIGHT = 480
-FPS = 60
+WIDTH = 720 / 8
+HEIGHT = 480 / 8
+FPS = 60 
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

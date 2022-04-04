@@ -1,13 +1,12 @@
 import pygame
-import random
 
 from constants import WIDTH
 from constants import HEIGHT 
 from constants import FPS
 from constants import BLACK
 
-from Bouncer import Bouncer 
-from Text import Text
+from classes.Bouncer import Bouncer 
+from classes.Text import Text
 
 # Initialize pygame and create window
 pygame.init()
@@ -53,7 +52,7 @@ while running:
         'Collisions with wall: ' + str(bouncer.collisions)
       )
       bouncer.reset()
-      bouncer.remaining_collisions = bouncer.get_remaining_collisions()
+      bouncer.update_remaining_collisions()
 
     
     #5 Display flip
