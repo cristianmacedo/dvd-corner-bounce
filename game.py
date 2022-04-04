@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 # Game loop
 running = True
 
-bouncer = Bouncer(screen, WIDTH-1, HEIGHT-1)
+bouncer = Bouncer(screen, WIDTH-1, HEIGHT-1, animate=True)
 time_intervals = [0]
 
 while running:
@@ -41,7 +41,13 @@ while running:
     if(bouncer.check_corner()):
       time_interval = pygame.time.get_ticks() - time_intervals[-1]
       time_intervals.append(time_interval)
-      print('Bounce! Time' + str(time_interval))
+      print( \
+        'Corner bounce!' + ' | ' + \
+        'Time: ' + str(time_interval/1000) + ' seconds' + ' | ' +  \
+        'Collisions with wall: ' + str(bouncer.bounces)
+      )
+      bouncer.reset()
+
     
     #5 Display flip
     pygame.display.flip()       
