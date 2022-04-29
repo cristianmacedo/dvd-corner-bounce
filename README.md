@@ -1,39 +1,40 @@
+
 ## 🤔 Challenge
-**Quantas colisões** até chegar em um canto?
 
-(GIF)
+**How many collisions** until it hits any corner?
 
-Essa foi a pergunta que motivou este projeto.
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/GIF1.gif" width="512"/>
+
+This was the question that moved the project.
 ## 💡 Approach
-A solução parece simples:
-**1:** Com a posição inicial da logo, obtemos o próximo ponto de colisão;
-**2:** Com este ponto, calculamos o próximo, e assim sucessivamente;
-**3:** Ao chegar em um canto, temos a contagem de iterações, e consequentemente, a quantidade de colisões restantes.
+The solution seems quite simple:
+**1:** With the initial position and direction, we get the next collision position;
+**2:** Using this position, we calculate the next one, and so on;
+**3:** When we hit a corner, we have the iteration count, and by definition, the remaining collisions.
 
-(GIF)
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/GIF2.gif" width="512"/>
 
-**❌ Problema:**
-Dessa forma, precisamos calcular todos os movimentos da logo, efetivamente realizando uma **simulação completa** para obter o resultado.
-Não parece muito efetivo, certo?
+**❌ Problem:**
+
+Using this approach, we need to compute every movement, effectively running a **full simulation** to get the result.
+Doesn't seem very effective, does it?
 ## 🔦 Approach #2:
-Ao invés de calcular todos os passos da logo, vamos usar um pouco de geometria para obter o próximo ponto de colisão:
+Instead of computing every movement, we can use some basic geometry to get the next collision position:
+**1:** We know that, for every direction, there are always **two possible walls** that it could collide:
 
-**1:** Sabemos que, a partir da direção da logo, existem sempre **duas possíveis bordas** que ele irá colidir:
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/Sides.png" width="512"/>
 
-(IMAGEM)
+**2:** Using this information, we get the **distance** between the logo and each one of them:
 
-**2:** A partir das possíveis bordas, calculamos a **distância** entre a logo e cada uma delas:
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/Distances.png" width="512"/>
 
-(IMAGEM)
+**3:** Assuming that the logo always moves in a **45°** angle, we use the **smallest** distance as a parameter to calculate the next collision position by offsetting the **X** and **Y** coordinates according to the current **distance** and **direction**:
 
-**3:** Assumindo que a logo se move sempre a **45°**, usamos a **menor** distância como parâmetro de cálculo para a obtenção da coordenada da colisão, alterando as coordenadas em X e Y de acordo com a **distância** obtida e a **direção** atual:
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/CoordsPrediction.png" width="512"/>
 
-(IMAGEM)
-
-Pronto! Dessa forma, obtemos a coordenada da próxima colisão, sem realizar uma simulação completa do movimento da logo.
-
+That's it! Using this approach, we get the next collision position, without computing a full simulation of the logo's movement.
 ## 🚀 Executing
-Para executar o projeto, utilize este comando, na pasta raiz do repositório:
+To run the project, execute the following command at the root directory:
 ```
 python game.py
 ```
