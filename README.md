@@ -28,7 +28,7 @@ Doesn't seem very effective, does it?
 Instead of computing every movement, we can use some basic geometry to get the next collision position:
 <br>
 <br>
-**1:** We know that, for every direction, there are always **two possible walls** that it could collide:
+**1:** We know that, for every direction, there are always **two possible walls** that it could collide with:
 <br>
 <img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/Sides.png" width="512"/>
 <br>
