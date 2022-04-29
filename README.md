@@ -43,8 +43,11 @@ Instead of computing every movement, we can use some basic geometry to get the n
 <img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/CoordsPrediction.png" width="512"/>
 <br>
 <br>
-**4:** We can now use the same recursive method mentioned before to calculate the remaining collisions, but of course, way faster.
-
+**4:** We can now use the same recursive method mentioned before to calculate the remaining collisions, but of course, way faster:
+<br>
+<img src="https://github.com/cristianmacedo/corner-bounce/raw/master/img/Faster.gif" width="512"/>
+<br>
+<br>
 **✅ That's it!** Using this approach, we can predict how many times the logo will collide before hitting a corner, without computing a full simulation of the logo's movement.
 ## 🚀 Executing
 To run the project, execute the following command at the root directory:
